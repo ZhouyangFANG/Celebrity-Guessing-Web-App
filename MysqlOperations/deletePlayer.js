@@ -1,7 +1,7 @@
 const mysql = require('mysql2/promise');
 
 // delete player by name
-const deletePlayer = async (db, name) => {
+module.exports = async (db, name) => {
   try {
     const query = 'DELETE FROM game_test.players WHERE player=?';
     const [row] = await db.execute(query, [name]);
@@ -11,5 +11,3 @@ const deletePlayer = async (db, name) => {
     throw new Error('Error executing the query');
   }
 };
-
-export default deletePlayer;

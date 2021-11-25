@@ -1,7 +1,7 @@
 const mysql = require('mysql2/promise');
 
 // Connect to our db on the cloud
-const connect = async () => {
+module.exports = async () => {
   try {
     const connection = await mysql.createConnection({
       host: 'database-1.chrcwgi8wrbt.us-east-1.rds.amazonaws.com',
@@ -17,5 +17,3 @@ const connect = async () => {
     throw err;
   }
 };
-
-export default connect;

@@ -1,7 +1,7 @@
 const mysql = require('mysql2/promise');
 
 // get player by id
-const getPlayer = async (db, id) => {
+module.exports = async (db, id) => {
   try {
     const query = 'select * from game_test.players where id = ?';
     const params = [id];
@@ -11,5 +11,3 @@ const getPlayer = async (db, id) => {
     throw new Error('Error executing the query');
   }
 };
-
-export default getPlayer;

@@ -1,8 +1,8 @@
-import addPlayer from './MysqlOperations/addPlayer';
-import connect from './MysqlOperations/connect';
-import deletePlayer from './MysqlOperations/deletePlayer';
-import getPlayer from './MysqlOperations/getPlayer';
-import getPlayers from './MysqlOperations/getPlayers';
+// import addPlayer from './MysqlOperations/addPlayer';
+// import connect from './MysqlOperations/connect';
+// import deletePlayer from './MysqlOperations/deletePlayer';
+// import getPlayer from './MysqlOperations/getPlayer';
+// import getPlayers from './MysqlOperations/getPlayers';
 
 // Create express app
 const express = require('express');
@@ -30,7 +30,7 @@ webapp.get('/', (req, res) => {
 webapp.get('/players', async (_req, res) => {
   console.log('READ all players');
   try {
-    const results = await getPlayers(db);
+    const results = await require('./MysqlOperations/getPlayers.js')(db);
     res.status(200).json({ data: results });
   } catch (err) {
     res.status(404).json({ error: err.message });
@@ -44,7 +44,7 @@ webapp.get('/player/:id', async (req, res) => {
       res.status(404).json({ error: 'id is missing' });
       return;
     }
-    const result = await getPlayer(db, req.params.id);
+    const result = await require('./MysqlOperations/getPlayer.js')(db, req.params.id);
     if (result === undefined) {
       res.status(404).json({ error: 'bad user id' });
       return;
@@ -67,7 +67,7 @@ webapp.post('/player/', async (req, res) => {
     points: req.body.points,
   };
   try {
-    const result = await addPlayer(db, newPlayer);
+    const result = await require('./MysqlOperations/addPlayer.js')(db, newPlayer);
     console.log(`id: ${JSON.stringify(result)}`);
     // add id to new player and return it
     res.status(201).json({
@@ -85,7 +85,7 @@ webapp.delete('/player/:player', async (req, res) => {
   }
   console.log('DELETE a player');
   try {
-    const result = await deletePlayer(db, req.params.player);
+    const result = await require('./MysqlOperations/deletePlayer.js')(db, req.params.player);
     console.log(`result-->${result}`);
     if (Number(result) === 0) {
       res.status(404).json({ error: 'player not in the system' });
@@ -104,7 +104,7 @@ webapp.use((_req, res) => {
 
 // Start server
 const port = process.env.PORT || 5000;
-webapp.listen(port, () => {
-  db = await connect();
+webapp.listen(port, async () => {
+  db = await require('./MysqlOperations/connect.js')();
   console.log(`Server running on port:${port}`);
 });

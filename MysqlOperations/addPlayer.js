@@ -1,7 +1,7 @@
 const mysql = require('mysql2/promise');
 
 // get player by id
-const addPlayer = async (db, newPlayer) => {
+module.exports = async (db, newPlayer) => {
   const query = 'INSERT  INTO game_test.players (player , points) VALUES(?, ?)';
   const params = [newPlayer.player, newPlayer.points];
   try {
@@ -11,4 +11,3 @@ const addPlayer = async (db, newPlayer) => {
     throw new Error('Error executing the query');
   }
 };
-export default addPlayer;
