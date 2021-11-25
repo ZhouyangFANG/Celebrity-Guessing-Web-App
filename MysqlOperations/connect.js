@@ -7,7 +7,7 @@ module.exports = async () => {
       host: 'database-1.cnqpke8cpazr.us-east-2.rds.amazonaws.com',
       user: 'admin',
       password: 'cergaf-rizqak-dokfY9',
-      database: 'database-1',
+      database: 'cis557',
     });
       // Connected to db
     console.log(`Connected to database: ${connection.connection.config.database}`);
