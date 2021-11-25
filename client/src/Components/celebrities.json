@@ -1,0 +1,72 @@
+{
+    "1": {
+        "image": "./images/1.jpg",
+        "A": "Harry Styles",
+        "B": "Ki Hong Lee",
+        "C": "Thomas Sangster",
+        "D": "Dylan O'Brien"
+    },
+    "2": {
+        "image": "./images/2.jpg",
+        "A": "Camila Cabello",
+        "B": "Ariana Grande",
+        "C": "Emma Stone",
+        "D": "Selena Gomez"
+    },
+    "3": {
+        "image": "./images/3.jpg",
+        "A": "Selena Gomez",
+        "B": "Mackenzie Ziegler",
+        "C": "Ariana Grande",
+        "D": "Sia"
+    },
+    "4": {
+        "image": "./images/4.jpg",
+        "A": "Sia",
+        "B": "Ariana Grande",
+        "C": "Taylor Swift",
+        "D": "Emma Stone"
+    },
+    "5": {
+        "image": "./images/5.jpg",
+        "A": "Ariana Grande",
+        "B": "Camila Cabello",
+        "C": "Sia",
+        "D": "Maddie Ziegler"
+    },
+    "6": {
+        "image": "./images/6.jpg",
+        "A": "Maddie Ziegler",
+        "B": "Camila Cabello",
+        "C": "Mackenzie Ziegler",
+        "D": "Ariana Grande"
+    },
+    "7": {
+        "image": "./images/7.jpg",
+        "A": "Thomas Sangster",
+        "B": "Big Sean",
+        "C": "Jace Norman",
+        "D": "Justin Bieber"
+    },
+    "8": {
+        "image": "./images/8.jpg",
+        "A": "Isabella Moner",
+        "B": "Laura Morano",
+        "C": "Kaya Scodelario",
+        "D": "Camila Cabello"
+    },
+    "9": {
+        "image": "./images/9.jpg",
+        "A": "Justin Bieber",
+        "B": "Dylan O'Brien",
+        "C": "Thomas Sangster",
+        "D": "Harry Styles"
+    },
+    "10": {
+        "image": "./images/10.jpg",
+        "A": "Kaya Scodelario",
+        "B": "Ariana Grande",
+        "C": "Taylor Swift",
+        "D": "Camila Cabello"
+    }
+}

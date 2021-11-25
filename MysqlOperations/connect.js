@@ -4,10 +4,10 @@ const mysql = require('mysql2/promise');
 module.exports = async () => {
   try {
     const connection = await mysql.createConnection({
-      host: 'database-1.chrcwgi8wrbt.us-east-1.rds.amazonaws.com',
-      user: 'cis557',
-      password: 'cis557+mysql',
-      database: 'game_test',
+      host: 'database-1.cnqpke8cpazr.us-east-2.rds.amazonaws.com',
+      user: 'admin',
+      password: 'cergaf-rizqak-dokfY9',
+      database: 'database-1',
     });
       // Connected to db
     console.log(`Connected to database: ${connection.connection.config.database}`);

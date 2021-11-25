@@ -6,8 +6,10 @@
 
 // Create express app
 const express = require('express');
+const cors = require('cors');
 const webapp = express();
 
+webapp.use(cors());
 webapp.use(express.json());
 webapp.use(
   express.urlencoded({
