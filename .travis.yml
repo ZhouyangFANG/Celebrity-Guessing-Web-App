@@ -10,17 +10,14 @@ jobs:
     - stage: Lint, Test, Build
       name: Lint
       script:
-        - cd App
         - npm install
         - npm run lint
     - name: Test
       script:
-        - cd App
         - npm install
         - npm test -- --coverage
     - name: Build
       script:
-        - cd App
         - npm install
         - npm run build
 

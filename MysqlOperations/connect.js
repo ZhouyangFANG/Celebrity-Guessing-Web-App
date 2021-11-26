@@ -10,10 +10,10 @@ module.exports = async () => {
       database: 'cis557',
     });
       // Connected to db
-    console.log(`Connected to database: ${connection.connection.config.database}`);
+    // console.log(`Connected to database: ${connection.connection.config.database}`);
     return connection;
   } catch (err) {
-    console.error(err.message);
+    // console.error(err.message);
     throw err;
   }
 };

@@ -7,6 +7,12 @@
 // Create express app
 const express = require('express');
 const cors = require('cors');
+const getPlayers = require('./MysqlOperations/getPlayers');
+const getPlayer = require('./MysqlOperations/getPlayer');
+const addPlayer =  require('./MysqlOperations/addPlayer');
+const deletePlayer = require('./MysqlOperations/deletePlayer');
+const connect = require('./MysqlOperations/connect');
+
 const webapp = express();
 
 webapp.use(cors());
@@ -30,72 +36,73 @@ webapp.get('/', (req, res) => {
 // TODO: define all endpoints as specified in REST API
 // Other API endpoints
 webapp.get('/players', async (_req, res) => {
-  console.log('READ all players');
+  // console.log('READ all players');
   try {
-    const results = await require('./MysqlOperations/getPlayers.js')(db);
-    res.status(200).json({ data: results });
+    const results = await getPlayers(db);
+    res.status(200).json(results);
   } catch (err) {
-    res.status(404).json({ error: err.message });
+    res.status(400).json({ error: 'bad url' });
   }
 });
 
 webapp.get('/player/:id', async (req, res) => {
-  console.log('READ a player by id');
+  // console.log('READ a player by id');
   try {
     if (req.params.id === undefined) {
-      res.status(404).json({ error: 'id is missing' });
+      res.status(404).json({ error: 'player not found' });
       return;
     }
-    const result = await require('./MysqlOperations/getPlayer.js')(db, req.params.id);
+    const result = await getPlayer(db, req.params.id);
     if (result === undefined) {
-      res.status(404).json({ error: 'bad user id' });
+      res.status(404).json({ error: 'player not found' });
       return;
     }
-    res.status(200).json({ data: result });
+    res.status(200).json(result);
   } catch (err) {
-    res.status(404).json({ error: err.message });
+    res.status(404).json({ error: 'player not found' });
   }
 });
 
-webapp.post('/player/', async (req, res) => {
-  console.log('CREATE a player');
-  if (!req.body.player || !req.body.points) {
-    res.status(404).json({ error: 'missing name or points' });
+webapp.post('/player', async (req, res) => {
+  // console.log('CREATE a player');
+  if (!req.body.name || !req.body.points || !req.body.maxpoints) {
+    res.status(400).json({ error: 'invalid input, object invalid' });
     return;
   }
   // create new player object
   const newPlayer = {
-    player: req.body.player,
+    name: req.body.name,
     points: req.body.points,
+    maxpoints: req.body.maxpoints
   };
   try {
-    const result = await require('./MysqlOperations/addPlayer.js')(db, newPlayer);
-    console.log(`id: ${JSON.stringify(result)}`);
+    const result = await addPlayer(db, newPlayer);
+    // console.log(`id: ${JSON.stringify(result)}`);
     // add id to new player and return it
     res.status(201).json({
       student: { id: result, ...newPlayer },
     });
   } catch (err) {
-    res.status(404).json({ error: err.message });
+    res.status(409).json({ error: 'the player already exists in the database' });
   }
 });
 
-webapp.delete('/player/:player', async (req, res) => {
-  if (req.params.player === undefined) {
-    res.status(404).json({ error: 'name is missing' });
+webapp.delete('/player/:id', async (req, res) => {
+  if (req.params.id === undefined) {
+    res.status(404).json({ error: 'player not found' });
     return;
   }
-  console.log('DELETE a player');
+  // console.log('DELETE a player');
   try {
-    const result = await require('./MysqlOperations/deletePlayer.js')(db, req.params.player);
-    console.log(`result-->${result}`);
+    const result = await deletePlayer(db, req.params.id);
+    // console.log(`result-->${result}`);
     if (Number(result) === 0) {
-      res.status(404).json({ error: 'player not in the system' });
+      res.status(404).json({ error: 'player not found' });
       return;
     }
-    res.status(200).json({ message: `Deleted ${result} player(s) with name ${req.params.player}` });
+    res.status(200).json({ message: 'player deleted successfully' });
   } catch (err) {
-    res.status(404).json({ error: err.message });
+    res.status(404).json({ error: 'player not found' });
   }
 });
 
@@ -107,6 +114,6 @@ webapp.use((_req, res) => {
 // Start server
 const port = process.env.PORT || 5000;
 webapp.listen(port, async () => {
-  db = await require('./MysqlOperations/connect.js')();
-  console.log(`Server running on port:${port}`);
+  db = await connect();
+  // console.log(`Server running on port:${port}`);
 });
