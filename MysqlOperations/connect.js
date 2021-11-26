@@ -14,6 +14,6 @@ module.exports = async () => {
     return connection;
   } catch (err) {
     // console.error(err.message);
-    throw err;
+    throw new Error('Connection Failed');
   }
 };

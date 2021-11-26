@@ -9,9 +9,11 @@ const express = require('express');
 const cors = require('cors');
 const getPlayers = require('./MysqlOperations/getPlayers');
 const getPlayer = require('./MysqlOperations/getPlayer');
-const addPlayer =  require('./MysqlOperations/addPlayer');
+const addPlayer = require('./MysqlOperations/addPlayer');
 const deletePlayer = require('./MysqlOperations/deletePlayer');
 const connect = require('./MysqlOperations/connect');
+const updatePlayer = require('./MysqlOperations/updatePlayer');
+const getLeaders = require('./MysqlOperations/getLeaders');
 
 const webapp = express();
 
@@ -20,7 +22,7 @@ webapp.use(express.json());
 webapp.use(
   express.urlencoded({
     extended: true,
-  })
+  }),
 );
 
 // declare DB object
@@ -73,15 +75,13 @@ webapp.post('/player', async (req, res) => {
   const newPlayer = {
     name: req.body.name,
     points: req.body.points,
-    maxpoints: req.body.maxpoints
+    maxpoints: req.body.maxpoints,
   };
   try {
     const result = await addPlayer(db, newPlayer);
     // console.log(`id: ${JSON.stringify(result)}`);
     // add id to new player and return it
-    res.status(201).json({
-      student: { id: result, ...newPlayer },
-    });
+    res.status(201).json({ id: result, ...newPlayer });
   } catch (err) {
     res.status(409).json({ error: 'the player already exists in the database' });
   }
@@ -94,15 +94,46 @@ webapp.delete('/player/:id', async (req, res) => {
   }
   // console.log('DELETE a player');
   try {
-    const result = await deletePlayer(db, req.params.id);
-    // console.log(`result-->${result}`);
-    if (Number(result) === 0) {
+    const result = await getPlayer(db, req.params.id);
+    if (result === undefined) {
       res.status(404).json({ error: 'player not found' });
       return;
     }
-    res.status(200).json({ message: 'player deleted successfully' });
+    await deletePlayer(db, req.params.id);
+    res.status(200).json(result);
   } catch (err) {
     res.status(404).json({ error: 'player not found' });
+  }
+});
+
+webapp.put('/player/:id', async (req, res) => {
+  if (req.params.id === undefined) {
+    res.status(404).json({ error: 'player not found' });
+    return;
+  }
+  const player = {
+    name: req.body.name,
+    points: req.body.points,
+    maxpoints: req.body.maxpoints,
+  };
+  try {
+    await updatePlayer(db, player);
+    res.status(200).json({ id: req.params.id, ...player });
+  } catch (err) {
+    res.status(404).json({ error: 'player not found' });
+  }
+});
+
+webapp.get('/leaders/:num', async (req, res) => {
+  if (req.params.id === undefined) {
+    res.status(400).json({ error: 'bad url' });
+    return;
+  }
+  try {
+    const results = await getLeaders(db, req.params.id);
+    res.status(200).json(results);
+  } catch (err) {
+    res.status(400).json({ error: 'bad url' });
   }
 });
 
