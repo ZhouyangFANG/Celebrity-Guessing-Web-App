@@ -8,12 +8,16 @@ module.exports = async () => {
       user: 'admin',
       password: 'cergaf-rizqak-dokfY9',
       database: 'cis557',
+      // host: process.env.HOST,
+      // user: process.env.USER,
+      // password: process.env.PASSWORD,
+      // database: process.env.DATABASE
     });
       // Connected to db
     // console.log(`Connected to database: ${connection.connection.config.database}`);
     return connection;
   } catch (err) {
     // console.error(err.message);
-    throw new Error('Connection Failed');
+    throw new Error('Database info required');
   }
 };

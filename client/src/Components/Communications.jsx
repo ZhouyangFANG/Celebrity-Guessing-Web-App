@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = 'http://localhost:4990';
+const url = 'http://localhost:5000';
 
 export async function RetrieveAll() {
   const res = await axios.get(`${url}/players`);
