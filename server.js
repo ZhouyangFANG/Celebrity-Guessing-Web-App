@@ -14,6 +14,7 @@ const deletePlayer = require('./MysqlOperations/deletePlayer');
 const connect = require('./MysqlOperations/connect');
 const updatePlayer = require('./MysqlOperations/updatePlayer');
 const getLeaders = require('./MysqlOperations/getLeaders');
+const dbInfo = require('./db-config');
 
 const webapp = express();
 
@@ -151,6 +152,6 @@ webapp.use((_req, res) => {
 // Start server
 const port = process.env.PORT || 5000;
 webapp.listen(port, async () => {
-  db = await connect();
+  db = await connect(dbInfo);
   // console.log(`Server running on port:${port}`);
 });
