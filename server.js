@@ -116,8 +116,11 @@ webapp.put('/player/:id', async (req, res) => {
     points: req.body.points,
     maxpoints: req.body.maxpoints,
   };
+  // console.log(player);
   try {
     await updatePlayer(db, player);
+    // const up = await getPlayer(db, 43);
+    // console.log(up);
     res.status(200).json({ id: req.params.id, ...player });
   } catch (err) {
     res.status(404).json({ error: 'player not found' });
@@ -125,14 +128,17 @@ webapp.put('/player/:id', async (req, res) => {
 });
 
 webapp.get('/leaders/:num', async (req, res) => {
-  if (req.params.id === undefined) {
+  if (req.params.num === undefined) {
     res.status(400).json({ error: 'bad url' });
     return;
   }
+  // console.log('2');
   try {
-    const results = await getLeaders(db, req.params.id);
+    const results = await getLeaders(db, req.params.num);
+    // console.log('3');
     res.status(200).json(results);
   } catch (err) {
+    // console.log('4');
     res.status(400).json({ error: 'bad url' });
   }
 });
