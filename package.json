@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest --coverage --runInBand --forceExit",
     "start": "node server.js",
-    "lint": "eslint . --ext .js --ignore-pattern *.test.js --ignore-pattern 'client/*' --resolve-plugins-relative-to ."
+    "lint": "eslint . --ext .js --ignore-pattern *.test.js --ignore-pattern 'client/*' --resolve-plugins-relative-to .",
+    "build": "npm install && cd client && npm install && npm run build"
   },
   "keywords": [],
   "author": "",
