@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const url = 'http://localhost:4990';
+// const url = 'http://localhost:4990';
+const url = 'https://hw3-mongo-backend.herokuapp.com';
 
 export async function RetrieveAll() {
   const res = await axios.get(`${url}/players`);

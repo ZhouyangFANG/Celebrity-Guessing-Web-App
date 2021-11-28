@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import {
   RetrieveAll, Post, Update, Delete, GetTop,
 } from './Communications';
+import GetPlayers from './GetPlayers';
+import GetLeaders from './GetLeaders';
 
 export default function Scores(props) {
   const {
@@ -70,6 +72,8 @@ export default function Scores(props) {
             Best Among All Players:
             {highestScore}
           </h4>
+          <GetLeaders />
+          <GetPlayers />
         </>
       )}
     </>

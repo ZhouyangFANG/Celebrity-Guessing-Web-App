@@ -155,3 +155,5 @@ webapp.listen(port, async () => {
   db = await connect(dbInfo);
   // console.log(`Server running on port:${port}`);
 });
+
+module.exports = webapp;
