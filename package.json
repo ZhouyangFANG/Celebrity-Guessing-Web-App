@@ -4,7 +4,7 @@
   "description": "HW4: Guess the Celebrity App (Full Stack)",
   "main": "server.js",
   "scripts": {
-    "test": "jest --coverage --forceExit",
+    "test": "jest --coverage --runInBand --forceExit",
     "start": "node server.js",
     "lint": "eslint . --ext .js --ignore-pattern *.test.js --ignore-pattern 'client/*' --resolve-plugins-relative-to ."
   },

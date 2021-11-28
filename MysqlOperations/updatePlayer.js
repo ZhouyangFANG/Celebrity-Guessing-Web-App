@@ -11,6 +11,6 @@ module.exports = async (db, player) => {
     }
     // console.log(`updated ${JSON.stringify(row.affectedRows)} player(s)`);
   } catch (err) {
-    // console.log(`error: ${err.message}`);
+    throw new Error('player not found');
   }
 };

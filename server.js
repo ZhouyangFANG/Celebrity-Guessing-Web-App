@@ -26,6 +26,16 @@ webapp.use(
   }),
 );
 
+// function isInt(value) {
+//   return !Number.isNaN(value)
+//          && parseInt(Number(value)) == value
+//          && !Number.isNaN(parseInt(value, 10));
+// }
+function isInt(value) {
+  const er = /^-?[0-9]+$/;
+  return er.test(value);
+}
+
 // declare DB object
 
 let db;
@@ -51,7 +61,7 @@ webapp.get('/players', async (_req, res) => {
 webapp.get('/player/:id', async (req, res) => {
   // console.log('READ a player by id');
   try {
-    if (req.params.id === undefined) {
+    if (!isInt(req.params.id)) {
       res.status(404).json({ error: 'player not found' });
       return;
     }
@@ -89,7 +99,7 @@ webapp.post('/player', async (req, res) => {
 });
 
 webapp.delete('/player/:id', async (req, res) => {
-  if (req.params.id === undefined) {
+  if (!isInt(req.params.id)) {
     res.status(404).json({ error: 'player not found' });
     return;
   }
@@ -108,11 +118,12 @@ webapp.delete('/player/:id', async (req, res) => {
 });
 
 webapp.put('/player/:id', async (req, res) => {
-  if (req.params.id === undefined) {
+  if (!isInt(req.params.id)) {
     res.status(404).json({ error: 'player not found' });
     return;
   }
   const player = {
+    // id: req.params.id,
     name: req.body.name,
     points: req.body.points,
     maxpoints: req.body.maxpoints,
@@ -129,8 +140,9 @@ webapp.put('/player/:id', async (req, res) => {
 });
 
 webapp.get('/leaders/:num', async (req, res) => {
-  if (req.params.num === undefined) {
+  if (!isInt(req.params.num)) {
     res.status(400).json({ error: 'bad url' });
+    // res.status(400).json({ error: `${typeof req.params.num}` });
     return;
   }
   // console.log('2');
@@ -139,7 +151,6 @@ webapp.get('/leaders/:num', async (req, res) => {
     // console.log('3');
     res.status(200).json(results);
   } catch (err) {
-    // console.log('4');
     res.status(400).json({ error: 'bad url' });
   }
 });
