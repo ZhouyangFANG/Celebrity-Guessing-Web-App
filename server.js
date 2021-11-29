@@ -43,12 +43,6 @@ function isInt(value) {
 
 let db;
 
-// Root endpoint
-// TODO: Will need to alter this for deployment
-webapp.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, './client/build/index.html'));
-});
-
 // TODO: define all endpoints as specified in REST API
 // Other API endpoints
 webapp.get('/players', async (_req, res) => {
@@ -158,9 +152,10 @@ webapp.get('/leaders/:num', async (req, res) => {
   }
 });
 
-// Default response for any other request
-webapp.use((_req, res) => {
-  res.status(404);
+// Root endpoint
+// TODO: Will need to alter this for deployment
+webapp.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, './client/build/index.html'));
 });
 
 // Start server
