@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "HW4: Guess the Celebrity App (Full Stack)",
   "main": "server.js",
+  "engines": {
+    "node": "16.8.0"
+  },
   "scripts": {
     "test": "jest --coverage --runInBand --forceExit",
     "start": "node server.js",
