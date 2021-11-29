@@ -96,13 +96,6 @@ describe('Create player endpoint API & integration tests', () => {
       .expect(404)
   );
 
-  test('test get root', () =>
-    request(webapp).get('/')
-      .expect(200)
-      .then((response) => {
-        expect(JSON.parse(response.text).message).toBe('Welcome to HW4 Backend');
-      }));
-
   test('delete player', () =>
     request(webapp).delete('/player/748573184573147564365').send('player=testuser')
       .expect(404) // testing the response status code
