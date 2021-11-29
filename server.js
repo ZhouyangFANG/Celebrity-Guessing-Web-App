@@ -7,6 +7,7 @@
 // Create express app
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 const getPlayers = require('./MysqlOperations/getPlayers');
 const getPlayer = require('./MysqlOperations/getPlayer');
 const addPlayer = require('./MysqlOperations/addPlayer');
@@ -26,6 +27,8 @@ webapp.use(
   }),
 );
 
+webapp.use(express.static(path.join(__dirname, './client/build')));
+
 // function isInt(value) {
 //   return !Number.isNaN(value)
 //          && parseInt(Number(value)) == value
@@ -42,8 +45,8 @@ let db;
 
 // Root endpoint
 // TODO: Will need to alter this for deployment
-webapp.get('/', (req, res) => {
-  res.json({ message: 'Welcome to HW4 Backend' });
+webapp.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, './client/build/index.html'));
 });
 
 // TODO: define all endpoints as specified in REST API
