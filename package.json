@@ -3,15 +3,34 @@
   "version": "1.0.0",
   "description": "HW4: Guess the Celebrity App (Full Stack)",
   "main": "server.js",
+  "engines": {
+    "node": "16.8.0"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "test": "jest --coverage --runInBand --forceExit",
+    "start": "node server.js",
+    "lint": "eslint . --ext .js --ignore-pattern *.test.js --ignore-pattern 'client/*' --resolve-plugins-relative-to .",
+    "build": "npm install && cd client && npm install && npm run build"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {},
+  "dependencies": {
+    "cors": "^2.8.5",
+    "eslint": "^8.3.0",
+    "eslint-config-airbnb": "^19.0.1",
+    "express": "^4.17.1",
+    "knex": "^0.95.14",
+    "mysql": "^2.18.1",
+    "mysql2": "^2.3.3",
+    "path": "^0.12.7"
+  },
   "devDependencies": {
-    "express": "^4.17.1"
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-react": "^7.27.1",
+    "jest": "^27.3.1",
+    "supertest": "^6.1.6"
   }
 }
