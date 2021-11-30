@@ -75,7 +75,7 @@ webapp.get('/player/:id', async (req, res) => {
 
 webapp.post('/player', async (req, res) => {
   // console.log('CREATE a player');
-  if (!req.body.name || !req.body.points || !req.body.maxpoints) {
+  if (!req.body.name) {
     res.status(400).json({ error: 'invalid input, object invalid' });
     return;
   }
